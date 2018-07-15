@@ -7,34 +7,34 @@ class ActionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.validValue
+      answer: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.isAnswerValid = this.isAnswerValid.bind(this);
+    this.isAnswerCorrect = this.isAnswerCorrect.bind(this);
   }
 
   onSubmit(e) {
     e.preventDefault();
-    this.isAnswerValid()
-      ? this.props.handleValidAction()
-      : this.props.handleInvalidAction();
-    this.setState({value: ''});
+    this.isAnswerCorrect()
+      ? this.props.handleCorrectAnswer()
+      : this.props.handleIncorrectAnswer();
+    this.setState({answer: ''});
   }
 
   onChange(e) {
-    this.setState({value: e.target.value})
+    this.setState({answer: e.target.value})
   }
 
-  isAnswerValid() {
-    return this.state.value === this.props.validValue;
+  isAnswerCorrect() {
+    return this.state.answer === this.props.correctAnswer;
   }
 
   render() {
     return (
       <Form onSubmit={this.onSubmit}>
         <InputGroup >
-          <Input value={this.state.value} onChange={this.onChange}/>
+          <Input value={this.state.answer} onChange={this.onChange}/>
           <InputGroupAddon addonType="append">
             <Button color="success">Submit</Button>
           </InputGroupAddon>
@@ -45,9 +45,9 @@ class ActionForm extends Component {
 }
 
 ActionForm.propTypes = {
-  handleValidAction: PropTypes.func.isRequired,
-  handleInvalidAction: PropTypes.func.isRequired,
-  validValue: PropTypes.string.isRequired,
+  handleCorrectAnswer: PropTypes.func.isRequired,
+  handleIncorrectAnswer: PropTypes.func.isRequired,
+  correctAnswer: PropTypes.string.isRequired,
 };
 
 export default ActionForm;

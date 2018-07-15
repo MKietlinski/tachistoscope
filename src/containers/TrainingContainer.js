@@ -8,27 +8,27 @@ class TrainingContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 1,
-      countValid: 0,
-      countInvalid: 0,
+      answered: 0,
+      countCorrect: 0,
+      countIncorrect: 0,
       currentValue: ''
     };
 
-    this.handleInvalidAction = this.handleInvalidAction.bind(this);
-    this.handleValidAction = this.handleValidAction.bind(this);
+    this.incrementAnsweredAndCorrectCount = this.incrementAnsweredAndCorrectCount.bind(this);
+    this.incrementAnsweredAndIncorrectCount = this.incrementAnsweredAndIncorrectCount.bind(this);
   }
 
-  handleValidAction() {
+  incrementAnsweredAndCorrectCount() {
     this.setState({
-      step: this.state.step + 1,
-      countValid: this.state.countValid + 1,
+      answered: this.state.answered + 1,
+      countCorrect: this.state.countCorrect + 1,
     })
   }
 
-  handleInvalidAction() {
+  incrementAnsweredAndIncorrectCount() {
     this.setState({
-      step: this.state.step + 1,
-      countInvalid: this.state.countInvalid + 1,
+      answered: this.state.answered + 1,
+      countIncorrect: this.state.countIncorrect + 1,
     })
   }
 
@@ -36,10 +36,12 @@ class TrainingContainer extends Component {
     return (
       <div className="border p-3">
         <Button className="btn-danger position-absolute" onClick={this.props.endTraining}>Back to settings</Button>
-        <h2 className="text-center">Step {this.state.step}</h2>
-        <h4 className="text-center"><span className="text-success">Valid {this.state.countValid}</span> / <span className="text-danger">Invalid {this.state.countInvalid}</span></h4>
+        <h2 className="text-center">Answered {this.state.answered}</h2>
+        <h4 className="text-center">
+          <span className="text-success">Correct {this.state.countCorrect}</span> / <span className="text-danger">Incorrect {this.state.countIncorrect}</span>
+        </h4>
 
-        <ActionForm handleValidAction={this.handleValidAction} handleInvalidAction={this.handleInvalidAction} validValue={this.state.currentValue}/>
+        <ActionForm handleCorrectAnswer={this.incrementAnsweredAndCorrectCount} handleIncorrectAnswer={this.incrementAnsweredAndIncorrectCount} correctAnswer={this.state.currentValue}/>
       </div>
     );
   }

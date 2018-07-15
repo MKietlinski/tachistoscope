@@ -7,34 +7,34 @@ describe('<ActionForm />', () => {
   let component;
 
   beforeEach(() => {
-    component = shallow(<ActionForm handleValidAction={jest.fn()} handleInvalidAction={jest.fn()} validValue="12345"/>)
+    component = shallow(<ActionForm handleCorrectAnswer={jest.fn()} handleIncorrectAnswer={jest.fn()} correctAnswer="12345"/>)
   });
 
   it('renders ok', () => {
     expect(component.length).toBe(1);
-    expect(component.instance().props.validValue).toBe('12345');
+    expect(component.instance().props.correctAnswer).toBe('12345');
   });
 
-  it('calls valid prop function depends on answer', () => {
+  it('calls correct prop function depends on answer', () => {
     const e = { preventDefault: jest.fn()};
-    let handleValidActionSpy = sinon.spy();
-    let handleInvalidActionSpy = sinon.spy();
+    let handleCorrectAnswerSpy = sinon.spy();
+    let handleIncorrectAnswerSpy = sinon.spy();
 
     component.setProps({
-      handleValidAction: handleValidActionSpy,
-      handleInvalidAction: handleInvalidActionSpy
+      handleCorrectAnswer: handleCorrectAnswerSpy,
+      handleIncorrectAnswer: handleIncorrectAnswerSpy
     });
 
-    component.instance().setState({value: '54321'});
+    component.instance().setState({answer: '54321'});
     component.instance().onSubmit(e);
-    expect(handleInvalidActionSpy.calledOnce).toBeTruthy();
+    expect(handleIncorrectAnswerSpy.calledOnce).toBeTruthy();
 
-    component.instance().setState({value: '12345'});
+    component.instance().setState({answer: '12345'});
     component.instance().onSubmit(e);
-    expect(handleValidActionSpy.calledOnce).toBeTruthy();
+    expect(handleCorrectAnswerSpy.calledOnce).toBeTruthy();
   });
 
-  it('sets state value on onChange call', () => {
+  it('sets state answer on onChange call', () => {
     const e = {
       target: {
         value: '1122'
@@ -42,14 +42,14 @@ describe('<ActionForm />', () => {
     };
 
     component.instance().onChange(e);
-    expect(component.instance().state.value).toBe('1122');
+    expect(component.instance().state.answer).toBe('1122');
   });
 
-  it('returns valid bool on isAnswerValid call', () => {
-    component.instance().setState({value: '12345'});
-    expect(component.instance().isAnswerValid()).toBeTruthy();
+  it('returns valid bool on isAnswerCorrect call', () => {
+    component.instance().setState({answer: '12345'});
+    expect(component.instance().isAnswerCorrect()).toBeTruthy();
 
-    component.instance().setState({value: '54321'});
-    expect(component.instance().isAnswerValid()).toBeFalsy();
+    component.instance().setState({answer: '54321'});
+    expect(component.instance().isAnswerCorrect()).toBeFalsy();
   });
 });
