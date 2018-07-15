@@ -27,8 +27,8 @@ describe('<Preview />', () => {
     expect(typeof component.instance().state.number).toBe('number');
   });
 
-  it('sets display inline on setDisplay call', () => {
-    component.instance().setDisplay();
+  it('sets display inline on setBlink call', () => {
+    component.instance().setBlink();
     expect(component.instance().state.display).toBe('inline');
   });
 });

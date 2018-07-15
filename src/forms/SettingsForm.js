@@ -4,50 +4,66 @@ import PropTypes from "prop-types";
 
 class SettingsForm extends Component {
 
+  static MIN_SIZE = 8;
+  static MIN_SPEED = 25;
+  static MIN_LENGTH = 1;
+  static MAX_SIZE = 40;
+  static MAX_SPEED = 1000;
+  static MAX_LENGTH = 20;
+  static SHIFT_SIZE = 2;
+  static SHIFT_SPEED = 25;
+  static SHIFT_LENGTH = 1;
+
   constructor(props) {
     super(props);
     this.increaseParameter = this.increaseParameter.bind(this);
     this.decreaseParameter = this.decreaseParameter.bind(this);
-    this.validateIncreaseParameter = this.validateIncreaseParameter.bind(this);
-    this.validateDecreaseParameter = this.validateDecreaseParameter.bind(this);
+    this.canBeIncreased = this.canBeIncreased.bind(this);
+    this.canBeDecreased = this.canBeDecreased.bind(this);
   }
 
   increaseParameter(e) {
     e.preventDefault();
-    if (this.validateIncreaseParameter(e.target.name))
-      this.props.handleParameterChange(e.target.name, this.props.parameters[e.target.name] + SettingsForm.getShiftForParameter(e.target.name));
+    const parameterType = e.target.name;
+    if (this.canBeIncreased(parameterType)) {
+      const increasedValue = this.props.parameters[parameterType] + SettingsForm.getShiftForParameter(parameterType);
+      this.props.handleParameterChange(parameterType, increasedValue);
+    }
   }
 
   decreaseParameter(e) {
     e.preventDefault();
-    if (this.validateDecreaseParameter(e.target.name))
-      this.props.handleParameterChange(e.target.name, this.props.parameters[e.target.name] - SettingsForm.getShiftForParameter(e.target.name));
+    const parameterType = e.target.name;
+    if (this.canBeDecreased(parameterType)) {
+      const decreasedValue = this.props.parameters[parameterType] - SettingsForm.getShiftForParameter(parameterType);
+      this.props.handleParameterChange(parameterType, decreasedValue);
+    }
   }
 
-  validateIncreaseParameter(parameter) {
+  canBeIncreased(parameter) {
     const max = {
-      size: 40,
-      speed: 1000,
-      length: 20
+      size: SettingsForm.MAX_SIZE,
+      speed: SettingsForm.MAX_SPEED,
+      length: SettingsForm.MAX_LENGTH
     };
 
     return this.props.parameters[parameter] < max[parameter];
   }
 
-  validateDecreaseParameter(parameter) {
+  canBeDecreased(parameter) {
     const min = {
-      size: 8,
-      speed: 25,
-      length: 1
+      size: SettingsForm.MIN_SIZE,
+      speed: SettingsForm.MIN_SPEED,
+      length: SettingsForm.MIN_LENGTH
     };
     return this.props.parameters[parameter] > min[parameter];
   }
 
   static getShiftForParameter(parameter) {
     const shift = {
-      size: 2,
-      speed: 25,
-      length: 1
+      size: SettingsForm.SHIFT_SIZE,
+      speed: SettingsForm.SHIFT_SPEED,
+      length: SettingsForm.SHIFT_LENGTH
     };
     return shift[parameter];
   }

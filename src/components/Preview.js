@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 class Preview extends Component {
 
+  static BRAKE_BETWEEN_BLINK_MILLISECONDS = 1500;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,23 +15,33 @@ class Preview extends Component {
     };
 
     this.setNumber = this.setNumber.bind(this);
-    this.setDisplay = this.setDisplay.bind(this);
+    this.setBlink = this.setBlink.bind(this);
+    this.clearIntervals = this.clearIntervals.bind(this);
+    this.setIntervals = this.setIntervals.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      numberInterval: setInterval(this.setNumber, 1500 + this.props.parameters.speed),
-      displayInterval: setInterval(this.setDisplay, 1500 + this.props.parameters.speed)
-    });
+    this.setIntervals();
   }
 
-  componentWillReceiveProps(props) {
+  componentWillUnmount() {
+    this.clearIntervals();
+  }
+
+  componentWillReceiveProps() {
+    this.clearIntervals();
+    this.setIntervals();
+  }
+
+  clearIntervals() {
     clearInterval(this.state.numberInterval);
     clearInterval(this.state.displayInterval);
+  }
 
+  setIntervals() {
     this.setState({
-      numberInterval: setInterval(this.setNumber, 1500 + props.parameters.speed),
-      displayInterval: setInterval(this.setDisplay, 1500 + props.parameters.speed)
+      numberInterval: setInterval(this.setNumber, Preview.BRAKE_BETWEEN_BLINK_MILLISECONDS + this.props.parameters.speed),
+      displayInterval: setInterval(this.setBlink, Preview.BRAKE_BETWEEN_BLINK_MILLISECONDS + this.props.parameters.speed)
     });
   }
 
@@ -39,7 +51,7 @@ class Preview extends Component {
     this.setState({number: number});
   }
 
-  setDisplay() {
+  setBlink() {
     this.setState({display: 'inline'});
     setTimeout(() => this.setState({display: 'none'}), this.props.parameters.speed);
   }

@@ -51,106 +51,106 @@ describe('<SettingsForm />', () => {
     expect(spy.args).toEqual([['size', 18]]);
   });
 
-  it('returns valid bool on validateIncreaseParameter size call', () => {
+  it('returns valid bool on canBeIncreased size call', () => {
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         size: 38
       }
     });
-    expect(component.instance().validateIncreaseParameter('size')).toBeTruthy();
+    expect(component.instance().canBeIncreased('size')).toBeTruthy();
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         size: 40
       }
     });
-    expect(component.instance().validateIncreaseParameter('size')).toBeFalsy();
+    expect(component.instance().canBeIncreased('size')).toBeFalsy();
   });
 
-  it('returns valid bool on validateIncreaseParameter speed call', () => {
+  it('returns valid bool on canBeIncreased speed call', () => {
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         speed: 975
       }
     });
-    expect(component.instance().validateIncreaseParameter('speed')).toBeTruthy();
+    expect(component.instance().canBeIncreased('speed')).toBeTruthy();
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         speed: 1000
       }
     });
-    expect(component.instance().validateIncreaseParameter('speed')).toBeFalsy();
+    expect(component.instance().canBeIncreased('speed')).toBeFalsy();
   });
 
-  it('returns valid bool on validateIncreaseParameter length call', () => {
+  it('returns valid bool on canBeIncreased length call', () => {
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         length: 19
       }
     });
-    expect(component.instance().validateIncreaseParameter('length')).toBeTruthy();
+    expect(component.instance().canBeIncreased('length')).toBeTruthy();
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         length: 20
       }
     });
-    expect(component.instance().validateIncreaseParameter('length')).toBeFalsy();
+    expect(component.instance().canBeIncreased('length')).toBeFalsy();
   });
 
-  it('returns valid bool on validateDecreaseParameter size call', () => {
+  it('returns valid bool on canBeDecreased size call', () => {
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         size: 10
       }
     });
-    expect(component.instance().validateDecreaseParameter('size')).toBeTruthy();
+    expect(component.instance().canBeDecreased('size')).toBeTruthy();
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         size: 8
       }
     });
-    expect(component.instance().validateDecreaseParameter('size')).toBeFalsy();
+    expect(component.instance().canBeDecreased('size')).toBeFalsy();
   });
 
-  it('returns valid bool on validateDecreaseParameter speed call', () => {
+  it('returns valid bool on canBeDecreased speed call', () => {
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         speed: 50
       }
     });
-    expect(component.instance().validateDecreaseParameter('speed')).toBeTruthy();
+    expect(component.instance().canBeDecreased('speed')).toBeTruthy();
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         speed: 25
       }
     });
-    expect(component.instance().validateDecreaseParameter('speed')).toBeFalsy();
+    expect(component.instance().canBeDecreased('speed')).toBeFalsy();
   });
 
-  it('returns valid bool on validateDecreaseParameter length call', () => {
+  it('returns valid bool on canBeDecreased length call', () => {
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         length: 2
       }
     });
-    expect(component.instance().validateDecreaseParameter('length')).toBeTruthy();
+    expect(component.instance().canBeDecreased('length')).toBeTruthy();
     component.setProps({
       parameters: {
         ...component.instance().props.parameters,
         length: 1
       }
     });
-    expect(component.instance().validateDecreaseParameter('length')).toBeFalsy();
+    expect(component.instance().canBeDecreased('length')).toBeFalsy();
   });
 
   it('returns valid value on getShiftForParameter call', () => {
