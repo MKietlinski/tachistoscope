@@ -16,15 +16,15 @@ describe('<Preview />', () => {
 
   it('renders ok', () => {
     expect(component.length).toBe(1);
-    expect(component.instance().state.number).toBeNull();
+    expect(component.instance().state.currentValue).toBeNull();
     expect(component.instance().state.display).toBe('none');
     expect(typeof component.instance().state.numberInterval).toBe('number');
     expect(typeof component.instance().state.displayInterval).toBe('number');
   });
 
-  it('sets number on setNumber call', () => {
-    component.instance().setNumber();
-    expect(typeof component.instance().state.number).toBe('number');
+  it('sets currentValue on generateAndSetCurrentValue call', () => {
+    component.instance().generateAndSetCurrentValue();
+    expect(typeof component.instance().state.currentValue).toBe('number');
   });
 
   it('sets display inline on setBlink call', () => {

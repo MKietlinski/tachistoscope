@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Button} from 'reactstrap';
 import ActionForm from "../forms/ActionForm";
+import AnswerBlink from "../components/AnswerBlink";
 
 class TrainingContainer extends Component {
 
@@ -11,25 +12,38 @@ class TrainingContainer extends Component {
       answered: 0,
       countCorrect: 0,
       countIncorrect: 0,
-      currentValue: ''
+      currentValue: 0
     };
 
     this.incrementAnsweredAndCorrectCount = this.incrementAnsweredAndCorrectCount.bind(this);
     this.incrementAnsweredAndIncorrectCount = this.incrementAnsweredAndIncorrectCount.bind(this);
+    this.generateAndSetCurrentValue = this.generateAndSetCurrentValue.bind(this);
+  }
+
+  componentDidMount() {
+    this.generateAndSetCurrentValue();
+  }
+
+  generateAndSetCurrentValue() {
+    const {length} = this.props.parameters;
+    const value = Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1));
+    this.setState({currentValue: value});
   }
 
   incrementAnsweredAndCorrectCount() {
     this.setState({
       answered: this.state.answered + 1,
       countCorrect: this.state.countCorrect + 1,
-    })
+    });
+    this.generateAndSetCurrentValue();
   }
 
   incrementAnsweredAndIncorrectCount() {
     this.setState({
       answered: this.state.answered + 1,
       countIncorrect: this.state.countIncorrect + 1,
-    })
+    });
+    this.generateAndSetCurrentValue();
   }
 
   render() {
@@ -40,7 +54,7 @@ class TrainingContainer extends Component {
         <h4 className="text-center">
           <span className="text-success">Correct {this.state.countCorrect}</span> / <span className="text-danger">Incorrect {this.state.countIncorrect}</span>
         </h4>
-
+        <AnswerBlink parameters={this.props.parameters} currentValue={this.state.currentValue}/>
         <ActionForm handleCorrectAnswer={this.incrementAnsweredAndCorrectCount} handleIncorrectAnswer={this.incrementAnsweredAndIncorrectCount} correctAnswer={this.state.currentValue}/>
       </div>
     );

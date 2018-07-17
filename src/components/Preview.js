@@ -8,13 +8,13 @@ class Preview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: null,
+      currentValue: null,
       display: 'none',
       numberInterval: null,
       displayInterval: null,
     };
 
-    this.setNumber = this.setNumber.bind(this);
+    this.generateAndSetCurrentValue = this.generateAndSetCurrentValue.bind(this);
     this.setBlink = this.setBlink.bind(this);
     this.clearIntervals = this.clearIntervals.bind(this);
     this.setIntervals = this.setIntervals.bind(this);
@@ -40,15 +40,15 @@ class Preview extends Component {
 
   setIntervals() {
     this.setState({
-      numberInterval: setInterval(this.setNumber, Preview.BRAKE_BETWEEN_BLINK_MILLISECONDS + this.props.parameters.speed),
+      numberInterval: setInterval(this.generateAndSetCurrentValue, Preview.BRAKE_BETWEEN_BLINK_MILLISECONDS + this.props.parameters.speed),
       displayInterval: setInterval(this.setBlink, Preview.BRAKE_BETWEEN_BLINK_MILLISECONDS + this.props.parameters.speed)
     });
   }
 
-  setNumber() {
+  generateAndSetCurrentValue() {
     const {length} = this.props.parameters;
-    const number = Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1));
-    this.setState({number: number});
+    const value = Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1));
+    this.setState({currentValue: value});
   }
 
   setBlink() {
@@ -66,7 +66,7 @@ class Preview extends Component {
     };
 
     return (
-        <p style={style}>{this.state.number}</p>
+        <p style={style}>{this.state.currentValue}</p>
     );
   }
 }

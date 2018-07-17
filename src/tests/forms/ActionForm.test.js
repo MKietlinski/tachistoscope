@@ -7,12 +7,12 @@ describe('<ActionForm />', () => {
   let component;
 
   beforeEach(() => {
-    component = shallow(<ActionForm handleCorrectAnswer={jest.fn()} handleIncorrectAnswer={jest.fn()} correctAnswer="12345"/>)
+    component = shallow(<ActionForm handleCorrectAnswer={jest.fn()} handleIncorrectAnswer={jest.fn()} correctAnswer={12345}/>)
   });
 
   it('renders ok', () => {
     expect(component.length).toBe(1);
-    expect(component.instance().props.correctAnswer).toBe('12345');
+    expect(component.instance().state.answer).toBe('');
   });
 
   it('calls correct prop function depends on answer', () => {
@@ -28,10 +28,13 @@ describe('<ActionForm />', () => {
     component.instance().setState({answer: '54321'});
     component.instance().onSubmit(e);
     expect(handleIncorrectAnswerSpy.calledOnce).toBeTruthy();
+    expect(component.instance().state.answer).toBe('');
+
 
     component.instance().setState({answer: '12345'});
     component.instance().onSubmit(e);
     expect(handleCorrectAnswerSpy.calledOnce).toBeTruthy();
+    expect(component.instance().state.answer).toBe('');
   });
 
   it('sets state answer on onChange call', () => {

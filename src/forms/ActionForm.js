@@ -27,14 +27,14 @@ class ActionForm extends Component {
   }
 
   isAnswerCorrect() {
-    return this.state.answer === this.props.correctAnswer;
+    return parseInt(this.state.answer, 10) === this.props.correctAnswer;
   }
 
   render() {
     return (
       <Form onSubmit={this.onSubmit}>
         <InputGroup >
-          <Input value={this.state.answer} onChange={this.onChange}/>
+          <Input value={this.state.answer} onChange={this.onChange} autoFocus/>
           <InputGroupAddon addonType="append">
             <Button color="success">Submit</Button>
           </InputGroupAddon>
@@ -47,7 +47,7 @@ class ActionForm extends Component {
 ActionForm.propTypes = {
   handleCorrectAnswer: PropTypes.func.isRequired,
   handleIncorrectAnswer: PropTypes.func.isRequired,
-  correctAnswer: PropTypes.string.isRequired,
+  correctAnswer: PropTypes.number.isRequired,
 };
 
 export default ActionForm;

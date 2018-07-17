@@ -19,7 +19,12 @@ describe('<TrainingContainer />', () => {
     expect(component.instance().state.answered).toBe(0);
     expect(component.instance().state.countCorrect).toBe(0);
     expect(component.instance().state.countIncorrect).toBe(0);
-    expect(component.instance().state.currentValue).toBe('');
+    expect(typeof component.instance().state.currentValue).toBe('number');
+  });
+
+  it('sets currentValue on generateAndSetCurrentValue call', () => {
+    component.instance().generateAndSetCurrentValue();
+    expect(typeof component.instance().state.currentValue).toBe('number');
   });
 
   it('changes state values on incrementAnsweredAndCorrectCount call', () => {
