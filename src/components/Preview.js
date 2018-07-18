@@ -61,12 +61,10 @@ class Preview extends Component {
       fontSize: this.props.parameters.size,
       display: this.state.display,
       wordBreak: 'break-all',
-      textAlign: 'center',
-      margin: '0 auto'
     };
 
     return (
-        <p style={style}>{this.state.currentValue}</p>
+        <p className="mx-auto text-center" style={style}>{this.state.currentValue}</p>
     );
   }
 }

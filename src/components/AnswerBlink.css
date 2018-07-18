@@ -1,0 +1,8 @@
+.answerBlinkContainer {
+    height: 200px;
+    background-color: lightgrey;
+    display: flex;
+    align-items: center;
+    margin: 25px auto;
+    border: 1px solid black;
+}

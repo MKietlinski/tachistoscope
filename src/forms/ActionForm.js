@@ -36,7 +36,7 @@ class ActionForm extends Component {
         <InputGroup >
           <Input value={this.state.answer} onChange={this.onChange} autoFocus/>
           <InputGroupAddon addonType="append">
-            <Button color="success">Submit</Button>
+            <Button color="success">Answer</Button>
           </InputGroupAddon>
         </InputGroup>
       </Form>

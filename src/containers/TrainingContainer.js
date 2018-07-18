@@ -49,13 +49,13 @@ class TrainingContainer extends Component {
   render() {
     return (
       <div className="border p-3">
-        <Button className="btn-danger position-absolute" onClick={this.props.endTraining}>Back to settings</Button>
         <h2 className="text-center">Answered {this.state.answered}</h2>
         <h4 className="text-center">
           <span className="text-success">Correct {this.state.countCorrect}</span> / <span className="text-danger">Incorrect {this.state.countIncorrect}</span>
         </h4>
         <AnswerBlink parameters={this.props.parameters} currentValue={this.state.currentValue}/>
         <ActionForm handleCorrectAnswer={this.incrementAnsweredAndCorrectCount} handleIncorrectAnswer={this.incrementAnsweredAndIncorrectCount} correctAnswer={this.state.currentValue}/>
+        <Button className="btn-danger mt-4" onClick={this.props.endTraining}>Back to settings</Button>
       </div>
     );
   }

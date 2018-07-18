@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import './AnswerBlink.css';
 
 class AnswerBlink extends Component {
 
@@ -38,23 +39,15 @@ class AnswerBlink extends Component {
   }
 
   render() {
-    const containerStyle = {
-      height: 200,
-      backgroundColor: 'lightgrey',
-      display: 'flex',
-      alignItems: 'center',
-      margin: '25px auto',
-      border: '1px solid black'
-    };
     const style = {
       fontSize: this.props.parameters.size,
       display: this.state.display,
-      margin: '0 auto',
+      wordBreak: 'break-all'
     };
 
     return (
-      <div style={containerStyle}>
-        <p style={style}>{this.props.currentValue}</p>
+      <div className="answerBlinkContainer">
+        <p className="mx-auto text-center" style={style}>{this.props.currentValue}</p>
       </div>
     );
   }

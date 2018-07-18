@@ -9,7 +9,6 @@ const SettingsContainer  = ({parameters, handleParameterChange, startTraining}) 
     <div className="border p-3">
       <Row>
         <Col sm={12} md={6} lg={7}>
-          <h2 className="text-center">Settings</h2>
           <SettingsForm parameters={parameters} handleParameterChange={handleParameterChange}/>
         </Col>
         <Col sm={12} md={6} lg={5} className="d-flex align-items-center" style={{minHeight: 200}}>

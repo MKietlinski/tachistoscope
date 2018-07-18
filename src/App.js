@@ -40,7 +40,7 @@ class App extends Component {
   render() {
     return (
       <div className="container mt-5">
-        <h2 className="text-center mb-5">Tachistoscope for fast reading training</h2>
+        <h2 className="text-center mb-5">Tachistoscope</h2>
         {this.state.isTraining
           ? <TrainingContainer parameters={this.state.parameters} endTraining={() => this.setIsTraining(false)}/>
           : <SettingsContainer parameters={this.state.parameters} handleParameterChange={this.changeParameter} startTraining={() => this.setIsTraining(true)}/>
